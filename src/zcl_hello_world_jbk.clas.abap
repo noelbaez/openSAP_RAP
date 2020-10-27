@@ -113,6 +113,8 @@ CLASS zcl_hello_world_jbk IMPLEMENTATION.
            END OF t_demo,
            tt_demo TYPE TABLE OF t_demo WITH EMPTY KEY.
 
+    DATA(s) = VALUE t_demo(  ).
+
 *    DATA it_lista TYPE tt_airlineid.
     SELECT * FROM /DMO/I_Flight INTO TABLE @DATA(flights).
     SELECT DISTINCT airlineid FROM @flights AS data ORDER BY airlineid INTO TABLE @DATA(it_data).
@@ -122,8 +124,8 @@ CLASS zcl_hello_world_jbk IMPLEMENTATION.
                                     GROUP BY wa-AirlineID ASCENDING WITHOUT MEMBERS ( <grp> ) ) ).
 
     out->write( VALUE tt_demo( FOR GROUPS <grp2> OF wa2 IN flights
-                               GROUP BY ( AIR = wa2-AirlineID
-                                          CON = wa2-ConnectionID )
+                               GROUP BY ( air = wa2-AirlineID
+                                          con = wa2-ConnectionID )
                                ASCENDING WITHOUT MEMBERS  ( <grp2> ) ) ).
 
 *   it_travel_id = VALUE #(  FOR GROUPS <booking> OF booking_key IN keys
