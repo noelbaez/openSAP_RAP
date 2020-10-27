@@ -13,6 +13,17 @@ ENDCLASS.
 CLASS zcl_hello_world_jbk IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 
+*    DATA itab TYPE TABLE OF i WITH EMPTY KEY.
+*    itab = VALUE #( FOR j = 1 WHILE j <= 10 ( j ) ).
+*    out->write( itab ).
+*
+*    DATA(sum) = REDUCE i( INIT x = 0 FOR wa IN itab NEXT x = x + wa ).
+*    Out->write( sum ).
+*
+*    SELECT SUM( table_line ) FROM @itab AS data INTO @DATA(total).
+*    out->write( TOTAL ).
+
+
 *    TYPES itab TYPE STANDARD TABLE OF i WITH EMPTY KEY.
 *
 *    DATA(itab) = VALUE itab( ( 1 ) ( 1 ) ( 2 ) ( 2 ) ).
@@ -95,37 +106,57 @@ CLASS zcl_hello_world_jbk IMPLEMENTATION.
 *    ENDLOOP.
 
 
+    TYPES tt_airlineid TYPE TABLE OF /dmo/carrier_id WITH EMPTY KEY.
+    TYPES: BEGIN OF t_demo,
+             airlineid    TYPE /dmo/carrier_id,
+             connectionid TYPE /dmo/connection_id,
+           END OF t_demo,
+           tt_demo TYPE TABLE OF t_demo WITH EMPTY KEY.
+
+*    DATA it_lista TYPE tt_airlineid.
     SELECT * FROM /DMO/I_Flight INTO TABLE @DATA(flights).
+    SELECT DISTINCT airlineid FROM @flights AS data ORDER BY airlineid INTO TABLE @DATA(it_data).
+    out->write( it_data ).
 
-    TYPES: BEGIN OF TY_group,
-             airlineID    TYPE /dmo/i_flight-AirlineID,
-             connectionid TYPE /dmo/i_flight-connectionid,
-             price        TYPE /dmo/i_flight-Price,
-*             idx          type sy-index,
-           END OF ty_group.
+    out->write( VALUE tt_airlineid( FOR GROUPS <grp> OF wa IN flights
+                                    GROUP BY wa-AirlineID ASCENDING WITHOUT MEMBERS ( <grp> ) ) ).
 
-*    TYPES group_keys TYPE STANDARD TABLE OF /DMO/I_Flight WITH EMPTY KEY.
-    TYPES group_keys TYPE STANDARD TABLE OF ty_group WITH EMPTY KEY.
+    out->write( VALUE tt_demo( FOR GROUPS <grp2> OF wa2 IN flights
+                               GROUP BY ( AIR = wa2-AirlineID
+                                          CON = wa2-ConnectionID )
+                               ASCENDING WITHOUT MEMBERS  ( <grp2> ) ) ).
 
-    out->write(
+*   it_travel_id = VALUE #(  FOR GROUPS <booking> OF booking_key IN keys
+*                                       GROUP BY booking_key-travel_id WITHOUT MEMBERS
+*                                             ( <booking> ) ) ).
 
-      VALUE group_keys(
-        FOR GROUPS carrier OF wa IN flights
-        INDEX INTO idx
-        GROUP BY ( carr = wa-airlineid
-                   conn = wa-connectionid )
-                   ASCENDING
-*                   WITHOUT MEMBERS ( carrier ) )
-          LET tprice = REDUCE /dmo/i_flight-Price( INIT s TYPE /dmo/i_flight-Price
-                                                   FOR r IN GROUP carrier
-                                                   NEXT s = s + r-price )
-          IN ( airlineid = carrier-carr
-               connectionid = carrier-conn
-               price = tprice )
-                )
-                ).
-*        WITHOUT MEMBERS
-*        ( carrier ) ) ).
+*    TYPES: BEGIN OF TY_group,
+*             airlineID    TYPE /dmo/i_flight-AirlineID,
+*             connectionid TYPE /dmo/i_flight-connectionid,
+*             price        TYPE /dmo/i_flight-Price,
+**             idx          type sy-index,
+*           END OF ty_group.
+*
+**    TYPES group_keys TYPE STANDARD TABLE OF /DMO/I_Flight WITH EMPTY KEY.
+*    TYPES group_keys TYPE SORTED TABLE OF ty_group WITH NON-UNIQUE key airlineid connectionid.
+*
+*    out->write(
+*
+*      VALUE group_keys(
+*        FOR GROUPS carrier OF wa IN flights INDEX INTO idx
+**
+*        GROUP BY ( carr = wa-airlineid
+*                   conn = wa-connectionid )
+**                   ASCENDING
+**                   WITHOUT MEMBERS ( carrier ) )
+*          LET tprice = REDUCE /dmo/i_flight-Price( INIT s TYPE /dmo/i_flight-Price
+*                                                   FOR r IN GROUP carrier
+*                                                   NEXT s = s + r-price )
+*          IN ( airlineid = carrier-carr
+*               connectionid = carrier-conn
+*               price = tprice )
+*                )
+*                ).
 
 *    SELECT * FROM /DMO/I_Flight INTO TABLE @DATA(flights).
 *    DATA members TYPE TABLE OF /DMO/I_Flight.
@@ -148,13 +179,13 @@ CLASS zcl_hello_world_jbk IMPLEMENTATION.
 *      out->write( members ).
 *    ENDLOOP..
 
-    SELECT airlineid, CONNECTIONid, SUM( price ) AS price
-    FROM @flights AS data
-    GROUP BY airlineid, connectionid
-    ORDER BY airlineid, connectionid
-    INTO TABLE @DATA(it_tab2).
-
-    out->write( it_tab2 ).
+*    SELECT airlineid, CONNECTIONid, SUM( price ) AS price
+*    FROM @flights AS data
+*    GROUP BY airlineid, connectionid
+*    ORDER BY airlineid, connectionid
+*    INTO TABLE @DATA(it_tab2).
+*
+*    out->write( it_tab2 ).
 
   ENDMETHOD.
 
