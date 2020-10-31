@@ -105,28 +105,37 @@ CLASS zcl_hello_world_jbk IMPLEMENTATION.
 *      out->write( members ).
 *    ENDLOOP.
 
+*    TYPES tt_airlineid TYPE TABLE OF /dmo/carrier_id WITH EMPTY KEY.
+*    TYPES: BEGIN OF t_demo,
+*             airlineid    TYPE /dmo/carrier_id,
+*             connectionid TYPE /dmo/connection_id,
+*           END OF t_demo,
+*           tt_demo TYPE TABLE OF t_demo WITH EMPTY KEY.
+*
+*    DATA(s) = VALUE t_demo(  ).
 
-    TYPES tt_airlineid TYPE TABLE OF /dmo/carrier_id WITH EMPTY KEY.
-    TYPES: BEGIN OF t_demo,
-             airlineid    TYPE /dmo/carrier_id,
-             connectionid TYPE /dmo/connection_id,
-           END OF t_demo,
-           tt_demo TYPE TABLE OF t_demo WITH EMPTY KEY.
-
-    DATA(s) = VALUE t_demo(  ).
-
-*    DATA it_lista TYPE tt_airlineid.
+    DATA members TYPE TABLE OF /DMO/I_Flight.
     SELECT * FROM /DMO/I_Flight INTO TABLE @DATA(flights).
-    SELECT DISTINCT airlineid FROM @flights AS data ORDER BY airlineid INTO TABLE @DATA(it_data).
-    out->write( it_data ).
 
-    out->write( VALUE tt_airlineid( FOR GROUPS <grp> OF wa IN flights
-                                    GROUP BY wa-AirlineID ASCENDING WITHOUT MEMBERS ( <grp> ) ) ).
+    LOOP AT flights ASSIGNING FIELD-SYMBOL(<fs>) GROUP BY <fs>-airlineid ASCENDING.
+      out->write( |Group: { <fs>-AirlineID }| ).
+      clear members.
+      LOOP AT GROUP <fs> ASSIGNING FIELD-SYMBOL(<member>) .
+        members = VALUE #( BASE members ( <member> ) ).
+      ENDLOOP.
+      out->write(  members ).
+    ENDLOOP.
 
-    out->write( VALUE tt_demo( FOR GROUPS <grp2> OF wa2 IN flights
-                               GROUP BY ( air = wa2-AirlineID
-                                          con = wa2-ConnectionID )
-                               ASCENDING WITHOUT MEMBERS  ( <grp2> ) ) ).
+*    SELECT DISTINCT airlineid FROM @flights AS data ORDER BY airlineid INTO TABLE @DATA(it_data).
+*    out->write( it_data ).
+*
+*    out->write( VALUE tt_airlineid( FOR GROUPS <grp> OF wa IN flights
+*                                    GROUP BY wa-AirlineID ASCENDING WITHOUT MEMBERS ( <grp> ) ) ).
+*
+*    out->write( VALUE tt_demo( FOR GROUPS <grp2> OF wa2 IN flights
+*                               GROUP BY ( air = wa2-AirlineID
+*                                          con = wa2-ConnectionID )
+*                               ASCENDING WITHOUT MEMBERS  ( <grp2> ) ) ).
 
 *   it_travel_id = VALUE #(  FOR GROUPS <booking> OF booking_key IN keys
 *                                       GROUP BY booking_key-travel_id WITHOUT MEMBERS
