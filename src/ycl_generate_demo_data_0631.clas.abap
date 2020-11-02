@@ -15,6 +15,7 @@ ENDCLASS.
 CLASS ycl_generate_demo_data_0631 IMPLEMENTATION.
   METHOD if_oo_adt_classrun~main.
 
+
     "Delete data from tables
     DELETE FROM yrap_atrav_0631. "Travel
     DELETE FROM yrap_abook_0631. "Booking

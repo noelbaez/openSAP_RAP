@@ -1,0 +1,14 @@
+@EndUserText.label: 'Access control for YI_RAP_TRAVEL_0631'
+@MappingRole: true
+define role YI_RAP_TRAVEL_0631 {
+    grant
+        select
+            on
+                YI_RAP_TRAVEL_0631
+                    where
+                        CurrencyCode = 'EUR'
+                        AND ( TravelStatus ) = aspect pfcg_auth(YOSTAT0631, YOSTAT0631, ACTVT = '03')
+                        or true //workaround for ABAP environment trial restrictions
+                        ;
+                        
+}
