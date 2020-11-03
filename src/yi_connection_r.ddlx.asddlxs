@@ -1,0 +1,33 @@
+@Metadata.layer: #CORE
+@UI.headerInfo : { typeNamePlural: 'Connections', typeName: 'Connection' }
+annotate view YI_CONNECTION_R with
+{
+
+  @UI.facet: [{ purpose: #STANDARD,
+                type: #IDENTIFICATION_REFERENCE,
+                label: 'Connection',
+                position: 10 }]
+
+  @UI.lineItem: [{ position: 10, label: 'Airline' }]
+  @UI.identification: [{ position: 10, label: 'Airline' }]
+  AirlineId;
+  @UI.lineItem: [{ position: 20, label: 'Connection Number' }]
+  @UI.identification: [{ position: 20, label: 'Connection Number' }]
+  ConnectionId;
+  @UI.selectionField: [{ position: 10 }]
+  @UI.lineItem: [{ position: 30, label: 'Departure Airport Code' }]
+  @UI.identification: [{ position: 30, label: 'Departure Airport Code' }]
+  DepartureAirport;
+  @UI.selectionField: [{ position: 20 }]
+  @UI.lineItem: [{ position: 40, label: 'Destination Airport Code'  }]
+  @UI.identification: [{ position: 40, label: 'Destination Airport Code'  }]
+  DestinationAirport;
+  @UI.lineItem: [{ position: 50, label: 'Departure Time' }]
+  @UI.identification: [{ position: 50, label: 'Departure Time' }]
+  DepartureTime;
+  @UI.lineItem: [{ position: 60, label: 'Arrival Time'}]
+  @UI.identification: [{ position: 60, label: 'Arrival Time'}]
+  ArrivalTime;
+  @UI.identification: [{ position: 70, label: 'Distance'}]
+  Distance;
+}

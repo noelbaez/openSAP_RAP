@@ -1,0 +1,4 @@
+@EndUserText.label: 'Read Only E2E: Service Def. for Flights'
+define service YFLIGHT_R {
+  expose YI_CONNECTION_R as Connection;
+}
