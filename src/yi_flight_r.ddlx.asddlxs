@@ -1,0 +1,23 @@
+@Metadata.layer: #CORE
+@Search.searchable: true
+annotate view YI_FLIGHT_R with
+{
+  @UI.lineItem: [ { position: 10, label: 'Airline'} ]
+  AirlineID;
+  @UI.lineItem: [ { position: 20, label: 'Connection Number' } ]
+  ConnectionId;
+  @UI.lineItem: [ { position: 30, label: 'Flight Date' } ]
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.7
+  FlightDate;
+  @UI.lineItem: [ { position: 40, label: 'Price' } ]
+  Price;
+  @UI.lineItem: [ { position: 50, label: 'Plane Type' } ]
+  @Search.defaultSearchElement: true
+  @Search.fuzzinessThreshold: 0.7
+  PlaneType;
+  @UI.lineItem: [ { position: 60, label: 'Maximum Seats' } ]
+  MaximumSeats;
+  @UI.lineItem: [ { position: 70, label: 'Occupied Seats' } ]
+  OccupiedSeats;
+}

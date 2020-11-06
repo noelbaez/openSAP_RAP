@@ -1,4 +1,7 @@
 @EndUserText.label: 'Read Only E2E: Service Def. for Flights'
 define service YFLIGHT_R {
   expose YI_CONNECTION_R as Connection;
+  expose YI_FLIGHT_R as Flight;
+  expose YI_CARRIER as Airline;
+  expose YI_AIRPORT as Airport;
 }

@@ -3,14 +3,10 @@
 {
 "FROM":
 [
-"/DMO/CONNECTION"
+"/DMO/AIRPORT"
 ],
 "ASSOCIATED":
-[
-"YI_AIRPORT",
-"YI_CARRIER",
-"YI_FLIGHT_R"
-],
+[],
 "BASE":
 [],
 "ANNO_REF":
