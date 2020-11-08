@@ -13,9 +13,9 @@ define root view entity YC_RAP_TRAVEL_0631
       @Search.defaultSearchElement: true
       AgencyID,
       _Agency.Name       as AgencyName,
-      @Consumption.valueHelpDefinition: [{ entity.name: '/DMO/I_Customer', entity.element: 'CustomerID ' }]
-      @Search.defaultSearchElement: true
+      @Consumption.valueHelpDefinition: [{ entity.name: '/DMO/I_Customer', entity.element: 'CustomerID' }]
       @ObjectModel.text.element: ['CustomerName']
+      @Search.defaultSearchElement: true
       CustomerID,
       _Customer.LastName as CustomerName,
       BeginDate,
@@ -36,6 +36,7 @@ define root view entity YC_RAP_TRAVEL_0631
 
       /* Associations */
       _Agency,
+      @Search.defaultSearchElement: true
       _Booking : redirected to composition child YC_RAP_BOOKING_0631,
       _Currency,
       _Customer

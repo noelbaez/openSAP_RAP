@@ -5,7 +5,6 @@ define role YC_RAP_TRAVEL_0631 {
         select
             on
                 YC_RAP_TRAVEL_0631
-                    where
+                 where
                         inheriting conditions from entity YI_RAP_TRAVEL_0631;
-                        
 }

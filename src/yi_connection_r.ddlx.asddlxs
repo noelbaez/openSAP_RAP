@@ -23,9 +23,6 @@ annotate view YI_CONNECTION_R with
   @Search.fuzzinessThreshold: 0.7
 
   AirlineId;
-//  @Search.defaultSearchElement: true
-//  @Search.fuzzinessThreshold: 0.7
-//  AirlineName;
 
   @UI.lineItem: [{ position: 20, label: 'Connection Number' }]
   @UI.identification: [{ position: 20, label: 'Connection Number' }]

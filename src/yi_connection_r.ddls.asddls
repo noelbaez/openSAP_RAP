@@ -14,7 +14,6 @@ define view YI_CONNECTION_R
       @ObjectModel.text.association: '_Airline'
   key Connection.carrier_id      as AirlineId,
   key Connection.connection_id   as ConnectionId,
-//      _Airline.Name              as AirlineName,
 
       @ObjectModel.text.association: '_AirportFrom'
       Connection.airport_from_id as DepartureAirport_o,
