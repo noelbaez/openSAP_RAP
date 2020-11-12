@@ -73,6 +73,7 @@ etag master LocalLastChangedAt
   update;
   delete;
   association _Travel { with draft; }
+
   field ( numbering : managed, readonly ) BookingUUID;
   field ( readonly ) TravelUUID, BookingID;
   field ( readonly ) LastChangedBy, CreatedBy, LocalLastChangedAt;
