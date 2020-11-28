@@ -12,7 +12,9 @@ ENDCLASS.
 
 
 
-CLASS ycl_generate_demo_data_0631 IMPLEMENTATION.
+CLASS YCL_GENERATE_DEMO_DATA_0631 IMPLEMENTATION.
+
+
   METHOD if_oo_adt_classrun~main.
 
     "Delete data from tables
@@ -71,5 +73,4 @@ CLASS ycl_generate_demo_data_0631 IMPLEMENTATION.
 
     out->write( 'Travel and Booking data inserted.' ).
   ENDMETHOD.
-
 ENDCLASS.

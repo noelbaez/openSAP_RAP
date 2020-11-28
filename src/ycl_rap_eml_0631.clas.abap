@@ -9,7 +9,11 @@ CLASS ycl_rap_eml_0631 DEFINITION
   PRIVATE SECTION.
 ENDCLASS.
 
-CLASS ycl_rap_eml_0631 IMPLEMENTATION.
+
+
+CLASS YCL_RAP_EML_0631 IMPLEMENTATION.
+
+
   METHOD if_oo_adt_classrun~main.
 
     "Step 1 - READ
@@ -111,5 +115,4 @@ CLASS ycl_rap_eml_0631 IMPLEMENTATION.
 *    out->write( 'Record deleted' ).
 
   ENDMETHOD.
-
 ENDCLASS.

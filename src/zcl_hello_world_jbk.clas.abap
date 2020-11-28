@@ -10,7 +10,11 @@ CLASS zcl_hello_world_jbk DEFINITION
   PRIVATE SECTION.
 ENDCLASS.
 
-CLASS zcl_hello_world_jbk IMPLEMENTATION.
+
+
+CLASS ZCL_HELLO_WORLD_JBK IMPLEMENTATION.
+
+
   METHOD if_oo_adt_classrun~main.
 
 *    DATA itab TYPE TABLE OF i WITH EMPTY KEY.
@@ -199,7 +203,4 @@ CLASS zcl_hello_world_jbk IMPLEMENTATION.
 *    out->write( it_tab2 ).
 
   ENDMETHOD.
-
 ENDCLASS.
-
-
